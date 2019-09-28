@@ -11,9 +11,13 @@ def create_contestant(n, k):
 
 def find_min_card(contestant, i):
     alist = list(contestant[i])
-    dic = Counter(alist)
-    return_dic = min(dic.values())
-    return next(n for n in alist[::-1] if dic[n] == return_dic)
+    return_list = []
+    cnt = Counter(alist)
+    min_cnt = min(cnt.values())
+    for n in alist:
+        if cnt[n] == min_cnt:
+            return_list.append(n)
+    return min(return_list)
 
 
 line1 = input()
@@ -21,5 +25,6 @@ n = int(line1[0])
 k = int(line1[2])
 contestant = create_contestant(n, k)
 i = 0
+turn = 1
 while contestant[i] != contestant[i][::-1]:
-        turn = 1
+    

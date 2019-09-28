@@ -1,6 +1,14 @@
 from collections import Counter
 
 
+def create_contestant(n, k):
+    contestant = []
+    for i in range(n):
+        contestant.append(input())
+    contestant[k - 1] += 'w'
+    return contestant
+
+
 def find_min_card(contestant, i):
     alist = list(contestant[i])
     dic = Counter(alist)
@@ -11,10 +19,7 @@ def find_min_card(contestant, i):
 line1 = input()
 n = int(line1[0])
 k = int(line1[2])
-contestant = []
-for i in range(n):
-    contestant.append(input())
-# contestant[k-1] += 'w'
+contestant = create_contestant(n, k)
 i = 0
 while contestant[i] != contestant[i][::-1]:
         turn = 1

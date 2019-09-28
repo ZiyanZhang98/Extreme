@@ -1,8 +1,11 @@
+from collections import Counter
+
+
 def find_min_card(contestant, i):
     alist = list(contestant[i])
-    card = min(alist)
-    # 这个肯定是不对的，不过我饿了，晚上再想
-    return card
+    dic = Counter(alist)
+    return_dic = min(dic.values())
+    return next(n for n in alist[::-1] if dic[n] == return_dic)
 
 
 line1 = input()

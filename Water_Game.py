@@ -2,11 +2,12 @@ from collections import Counter
 
 
 def create_contestant(n, k):
+    wild_card = True
     contestant = []
     for i in range(n):
         contestant.append(input())
         contestant[i] = list(contestant[i])
-    contestant[k - 1] += 'w'
+    contestant[k - 1].append(wild_card)
     return contestant
 
 
@@ -27,9 +28,11 @@ k = int(line1[2])
 contestant = create_contestant(n, k)
 i = 0
 turn = 1
-while i < n-1:
+while contestant[i%10] != :
     card = find_min_card(contestant, i)
     contestant[i].remove(card)
     contestant[i+1].append(card)
+    card2 = find_min_card(contestant, i+1)
+
     # 问题的关键在于临界状态是什么样子的？？
     i += 1

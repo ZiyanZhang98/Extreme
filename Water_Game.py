@@ -18,11 +18,12 @@ def winner_winner(dlist, i):
 
 
 def pick_card(alist):
-    mn = -1
+    card = -1
     for i in range(len(alist)):
-        if alist[i] != 0 and (mn == -1 or alist[i] < alist[mn]):
-            mn = i
-    return mn
+        if card == -1 or alist[i] < alist[card]:
+            if alist[i] != 0:
+                card = i
+    return card
 
 
 def play(n, k, contestants):
@@ -39,8 +40,9 @@ def play(n, k, contestants):
         else:
             pass_wild_card = True
             card = pick_card(contestants[current_contestant])
-            contestants[current_contestant][card] -= 1
             contestants[next_contestant][card] += 1
+            contestants[current_contestant][card] -= 1
+
         if winner_winner(contestants, current_contestant) and k != current_contestant:
             return current_contestant
         current_contestant = next_contestant
@@ -52,8 +54,13 @@ cards_value = {'A': 0, '2': 1, '3': 2, '4': 3, '5': 4, '6': 5, '7': 6, '8': 7,
 line1 = input()
 n = int(line1[0])
 k = int(line1[2])-1
-contestants = create_contestants(n, cards_value)
-print(play(n, k, contestants)+1)
+hand = []
+for i in range(n):
+    hand.append([0] * 13)
+    sets = list(input())
+    for card in sets:
+        hand[i][cards_value[card]] += 1
+print(play(n, k, hand)+1)
 
 
 

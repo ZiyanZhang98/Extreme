@@ -13,14 +13,37 @@ def winner_winner(dlist, i):
     for card in dlist[i]:
         if card == 4:
             winner = True
+            break
     return winner
 
 
 def pick_card(alist):
-    return_card = 0
+    mn = -1
     for i in range(len(alist)):
-        if alist[i] != 0 and alist[i] < alist[return_card]:
-            return_card = i
+        if alist[i] != 0 and (mn == -1 or alist[i] < alist[mn]):
+            mn = i
+    return mn
+
+
+def play(n, k, contestants):
+    current_contestant = k
+    pass_wild_card = False
+    for i in range(n):
+        if winner_winner(contestants, i) and i != k:
+            return i
+    while True:
+        next_contestant = (current_contestant + 1) % n
+        if k == current_contestant and pass_wild_card is True:
+            pass_wild_card = False
+            k = next_contestant
+        else:
+            pass_wild_card = True
+            card = pick_card(contestants[current_contestant])
+            contestants[current_contestant][card] -= 1
+            contestants[next_contestant][card] += 1
+        if winner_winner(contestants, current_contestant) and k != current_contestant:
+            return current_contestant
+        current_contestant = next_contestant
 
 
 deck = 'A23456789DQJK'
@@ -30,18 +53,7 @@ line1 = input()
 n = int(line1[0])
 k = int(line1[2])-1
 contestants = create_contestants(n, cards_value)
-winners = []
-pass_wild_card = True
-current_contestant = k
-while True:
-    for i in range(n):
-        if winner_winner(contestants, i) and i != k:
-            winners().append(i)
-            break
-    next_contestant = (current_contestant+1) % n
-    if k == current_contestant and pass_wild_card:
-        pass_wild_card = False
-
+print(play(n, k, contestants)+1)
 
 
 
